@@ -1,9 +1,16 @@
 
-import{IsString, MinLength, IsNotEmpty,IsArray,ArrayMinSize,ArrayNotEmpty}from 'class-validator'
+import{IsString, MinLength, IsNotEmpty,IsArray,ArrayMinSize,ArrayNotEmpty,ValidateNested}from 'class-validator'
+import { Type } from 'class-transformer';
 
-export class CreateDogDto {
-    
+class TaskDto {
+  @IsString()
+  @MinLength(2, { message: "Description must have at least 2 characters" })
+  @IsNotEmpty()
+  description: string;
+
+  complete: boolean;
 }
+
 
 export class CreateRegionDto {
     @IsString()
@@ -14,6 +21,7 @@ export class CreateRegionDto {
     @IsArray()
     @ArrayNotEmpty()
     @ArrayMinSize(1)
-    @IsString({ each: true })
-    tasks: string[];
+    @ValidateNested({ each: true })
+    @Type(() => TaskDto)
+    tasks: TaskDto[];
 }
