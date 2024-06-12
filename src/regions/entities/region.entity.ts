@@ -19,6 +19,12 @@ export class Region {
   @Prop({ required: true })
   name: string;
 
+  @Prop({ required: true })
+  regionID: number;
+
+  @Prop({ default: false })
+  complete: boolean;
+
   @Prop({ type: [TaskSchema], default: [] })
   tasks: Task[];
 }

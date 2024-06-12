@@ -1,5 +1,5 @@
 
-import{IsString, MinLength, IsNotEmpty,IsArray,ArrayMinSize,ArrayNotEmpty,ValidateNested}from 'class-validator'
+import{IsString, MinLength, IsNotEmpty,IsArray,ArrayMinSize,ArrayNotEmpty,ValidateNested, IsNumber}from 'class-validator'
 import { Type } from 'class-transformer';
 
 class TaskDto {
@@ -13,10 +13,16 @@ class TaskDto {
 
 
 export class CreateRegionDto {
+    @IsNumber()
+    @IsNotEmpty()
+    regionID: number;
+    
     @IsString()
     @MinLength(2, {message:"Name must have atleast 2 characters"})
     @IsNotEmpty()
     name:string;
+
+    completed: boolean;
 
     @IsArray()
     @ArrayNotEmpty()
