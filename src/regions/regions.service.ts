@@ -22,9 +22,13 @@ export class RegionsService {
     return this.regionModel.find().exec();
   }
 
-  // findOne(id: number) {
-  //   return `This action returns a #${id} region`;
-  // }
+ async findOne(regionID: number) {
+    const region = await this.regionModel.findOne({ regionID }).exec();
+    if (!region) {
+      throw new HttpException('Region not found', HttpStatus.NOT_FOUND);
+    }
+    return region;
+  }
 
   // update(id: number, updateRegionDto: UpdateRegionDto) {
   //   return `This action updates a #${id} region`;
